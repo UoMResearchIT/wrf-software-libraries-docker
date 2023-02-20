@@ -1,6 +1,6 @@
 # wrf-docker
 
-This build system creates a docker container for WRF / WPS.
+This build system creates the library docker container for WRF / WPS.
 
 Main page: https://github.com/wrf-model/WRF
 
@@ -10,21 +10,21 @@ Main page: https://github.com/wrf-model/WRF
 
 ## Pre-built images
 
-Images are available at the Dockerhub:
+Images are hosted via github packages:
 
-* [wrf_wps](https://hub.docker.com/repository/docker/oliverwoolland/wrf_wps) provides the main WRF application
-* [wrfplus_4dvar](https://hub.docker.com/repository/docker/oliverwoolland/wrfplus_4dvar) provides the WRFPLUS and WRF-4DVar extensions
+* [library](https://github.com/UoMResearchIT/wrf-docker/pkgs/container/wrf-libraries) container
 
-An [intermediate](https://hub.docker.com/repository/docker/oliverwoolland/wrf_intermediate) container is available which containerises the dependancies for WRF
+## Provided libraries
+
+* zlib
+* libpng
+* JasPer
+* HDF5
+* NetCDF
+* MPICH
 
 ## Usage
-
-Begin with building the base container, this needs to be named `wrf_intermediate`:
-* `DOCKER_BUILDKIT=1 docker build . -t 'wrf_intermediate' -f Dockerfile-base`
 
 To build a specific target in the base container use `--target <target name>`, e.g.:
 * `DOCKER_BUILDKIT=1 docker build . --target final -t 'wrf_build_test' -f Dockerfile-base`
 
-After this the main containers can be built, based on the `wrf_intermediate` container:
-* `DOCKER_BUILDKIT=1 docker build . -t 'wrf_wps' -f Dockerfile-wrf_wps`
-* `DOCKER_BUILDKIT=1 docker build . -t 'wrfplus_4dvar' -f Dockerfile-wrfplus_4dvar`
